@@ -1,0 +1,6 @@
+[
+  "openrouter:openai/gpt-4o-mini",
+  "openrouter:anthropic/claude-3.5-haiku",
+  "openrouter:google/gemini-2.5-flash",
+  "openrouter:meta-llama/llama-3-70b-instruct"
+]
