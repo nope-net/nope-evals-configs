@@ -1,5 +1,5 @@
 title: "[webhook test] tiny"
-description: "Transient end-to-end test of the PR eval webhook. Safe to delete."
+description: "Transient end-to-end test of the PR eval webhook (retry after R2 fix). Safe to delete."
 tags: [test]
 models:
   - CORE
