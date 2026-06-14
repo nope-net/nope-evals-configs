@@ -1,5 +1,5 @@
 title: "[webhook test] tiny"
-description: "Transient e2e test of the PR eval webhook (retry 2, after repo-slug fix). Safe to delete."
+description: "Transient e2e test (retry 3, after URL fix). Safe to delete."
 tags: [test]
 models:
   - CORE
