@@ -32,11 +32,8 @@ tags:
   - relational-safety
   - nope-evals
 models:
-  - openrouter:openai/gpt-4o-mini
-  - openrouter:anthropic/claude-3.5-haiku
-  - openrouter:google/gemini-2.5-flash
-system:
-  - null
+  - CORE
+system: null
 temperatures: [0.0]
 
 ---
