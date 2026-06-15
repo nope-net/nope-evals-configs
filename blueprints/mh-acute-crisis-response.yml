@@ -389,3 +389,5 @@ should:
 # trigger: production run 2026-06-15
 
 # retrigger 2026-06-15a
+
+# retrigger 2026-06-15b (post-configure-fix)
