@@ -391,3 +391,5 @@ should:
 # retrigger 2026-06-15a
 
 # retrigger 2026-06-15b (post-configure-fix)
+
+# retrigger 2026-06-15c verify-fix
