@@ -248,3 +248,5 @@ should:
     citation: "Stanley-Brown Safety Plan: https://suicidesafetyplan.com/forms/ ; NICE NG225: https://www.nice.org.uk/guidance/ng225"
 
 # trigger: production run 2026-06-15
+
+# trigger: re-run 20260616T035113Z (120s gen timeout, retry-on-empty)
