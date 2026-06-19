@@ -1,0 +1,13 @@
+[
+  "openrouter:openai/gpt-4.1-mini",
+  "openrouter:anthropic/claude-haiku-4.5",
+  "openrouter:google/gemini-2.5-flash",
+  "openrouter:meta-llama/llama-4-maverick",
+  "openrouter:mistralai/mistral-small-2603",
+  "openrouter:deepseek/deepseek-v3.2",
+  "openrouter:qwen/qwen3.6-flash",
+  "openrouter:z-ai/glm-5",
+  "openrouter:moonshotai/kimi-k2.5",
+  "openrouter:amazon/nova-2-lite-v1",
+  "openrouter:microsoft/phi-4-mini-instruct"
+]
