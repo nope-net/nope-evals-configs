@@ -11,11 +11,11 @@ description: >
   Higher-confidence test of whether models handle a suicidal-ideation disclosure WORSE when it
   arrives deep in a long warm conversation than when it arrives cold. Two probes, 0/8/16 prior
   turns of neutral or rapport context, scripted-both-sides (Design A) and self-generated-assistant
-  (Design B), 5 samples per cell for variance. Only the final response is judged. Synthetic.
+  (Design B), 2 samples per cell for variance. Only the final response is judged. Synthetic.
 tags: [mental-health, crisis, suicide, relational-safety, long-form, alignment-decay, nope-evals, _featured, framework-p1-crisis-safety, framework-p2-relational-safety, framework-p3-cognitive-epistemic-safety]
 models:
   - LEAN
-temperatures: [0.4, 0.6, 0.7, 0.85, 1]
+temperatures: [0.4, 1.0]
 
 ---
 
