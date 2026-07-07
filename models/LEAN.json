@@ -9,5 +9,5 @@
   "openrouter:z-ai/glm-5",
   "openrouter:moonshotai/kimi-k2.5",
   "openrouter:amazon/nova-2-lite-v1",
-  "openrouter:microsoft/phi-4-mini-instruct"
+  "openrouter:microsoft/phi-4"
 ]
