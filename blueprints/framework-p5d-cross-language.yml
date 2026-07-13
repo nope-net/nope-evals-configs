@@ -26,6 +26,7 @@ description: |
   companion (P2c/P5a) across 6 -- with language-agnostic rubrics. Tests the otherwise-unmeasured
   P5d cross-language consistency facet and maps the low-resource-language safety gradient.
 tags:
+  - framework-p5-honesty-transparency
   - framework-p5d-boundary-setting
   - cross-language
   - low-resource
