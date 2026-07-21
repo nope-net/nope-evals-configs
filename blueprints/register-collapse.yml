@@ -54,15 +54,27 @@
 # it is genre-mismatched and the ABSOLUTE numbers are inflated. Within-model, within-metric arm
 # contrasts are unaffected and are what this suite is for.
 #
-# METRIC WEIGHTS follow measured signal, not intuition: `skeleton` is the primary instrument and the
-# only one that sees the phenomenon; `drift` and `proportionality` are corroborating secondaries at
-# weight 1 (drift because it was significant for only 2 of 5 models; proportionality because it
-# measures a real but SEPARATE axis — gemini-2.5-flash averages 754 words per reply while showing no
-# significant convergence, so verbosity and collapse are orthogonal). `recurrence` is dropped: it
-# discriminated least of the four.
+# METRICS. The primary instrument is skeletal templating, split into TWO points that are
+# deliberately NOT averaged because they catch different failures and disagree in mid-table:
+#   skeleton_rigidity  turn-share of the single most-repeated syntactic frame. The measure the
+#                      human-plausibility test validates WITHOUT a reference corpus — nobody ends
+#                      fourteen unrelated explainers with the same construction, so 0.9 is
+#                      self-evidently odd while 0.36 is unremarkable.
+#   skeleton_coverage  share of the model's tokens that sit inside ANY reused frame; a ratio, so
+#                      reply length cancels. (An earlier single metric divided by token count on top
+#                      of turn-share, normalising twice, which let a verbose model dilute an absolute
+#                      tic — claude-opus-4.8 locking one frame in 14/14 turns outranked haiku's 8/14.)
+#   On the LEAN+frontier run these separate a RIGID-NARROW "tic" profile (opus-4.8, gemini-2.5-flash,
+#   deepseek: one locked construction, otherwise varied prose) from a DIFFUSE "broad" profile
+#   (haiku-4.5: nothing locked, more of the output recycled) that one number would have conflated;
+#   both frontier models were still beaten ~4x by kimi-k2.5, so this is a training signature, not a
+#   capability ceiling. `drift` and `proportionality` are weight-1 corroborating secondaries;
+#   `recurrence` was dropped as least discriminating.
 #
-# COST. 14 sequential generations per cell, 4 arms x 14 x 3 temps x 11 LEAN models = 1,848
-# generations, with long replies. Escalate to CORE only after LEAN shows the two contrasts hold.
+#
+# COST. 14 SEQUENTIAL generations per cell, 4 arms x 14 x 3 temps x 26 CORE models = 4,368
+# generations with long replies — the most expensive suite in the repo. LEAN (positive in 9/9
+# models, mean +10.38 frames/1k on the domain contrast) validated the design before this CORE run.
 # AUTHORING GOTCHAS: `messages:` must END ON A `user` ROLE; inline model ids need the `openrouter:`
 # prefix; distinct temperatures are required because the runner keys cells by effective model id and
 # repeated identical temperatures silently overwrite one another.
@@ -82,12 +94,7 @@ tags:
   - everyday-conversation
   - nope-evals
 models:
-  - LEAN
-  # Two frontier siblings of models already in LEAN, so each pair is a within-family capability
-  # comparison: claude-haiku-4.5 vs claude-opus-4.8, and gpt-4.1-mini vs gpt-5.5. Tests whether
-  # collapse diminishes with capability or merely changes shape.
-  - openrouter:anthropic/claude-opus-4.8
-  - openrouter:openai/gpt-5.5
+  - CORE
 temperatures: [0.71, 0.72, 0.73]
 system: null
 
@@ -127,7 +134,10 @@ system: null
     - user: "a haiku sequence about a commute"
   should: &collapse
     - fn: conversation_trajectory
-      fnArgs: { metric: skeleton, max: 1.5 }
+      fnArgs: { metric: skeleton_rigidity, max: 0.85 }
+      weight: 3
+    - fn: conversation_trajectory
+      fnArgs: { metric: skeleton_coverage, max: 0.20 }
       weight: 3
     - fn: conversation_trajectory
       fnArgs: { metric: drift, max: 0.15 }
