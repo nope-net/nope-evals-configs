@@ -1,0 +1,253 @@
+# NOPE Evals — REGISTER COLLAPSE: does a model's prose converge on itself over a long conversation?
+#
+# THE PHENOMENON. Held in a long conversation, models stop varying their FORM. Not their vocabulary
+# and not their topic — their syntactic frames. The same skeleton recurs with different content
+# poured into it: "if you *, i can *", "it's * that you're *", a horizontal rule followed by "If
+# you...". gpt-4.1-mini ran that last one in 13 of 14 turns of a recommendation thread.
+#
+# WHAT IT IS NOT, established by measurement rather than assumption:
+#   - NOT lexical. Verbatim 5-gram echo between conversation halves is 0.002-0.03. A model repeating
+#     one frame ten times scores ~0.9 novel-4gram and ~0.85 type-token ratio. Every surface-lexical
+#     metric is blind to this.
+#   - NOT (mostly) semantic. Against a 200-permutation shuffle null, only 2 of 5 models showed
+#     temporal semantic convergence above chance (z=3.11, 2.70; the rest 0.44-1.46). Human-written
+#     turns in the same conversation drift 0.014 — people do not converge.
+#   - NOT vocabulary narrowing. Cumulative-vocabulary slope falls in the second half for every
+#     model, but it also falls for the human reference (0.652): that is Heaps' law, not collapse.
+#
+# ARMS — chosen because each pair is a WITHIN-EXPERIMENT contrast that needs no external baseline.
+#   1. DOMAIN CONTRAST. `creative-writing` vs `recommendations`. THE PRIMARY RESULT, and it is
+#      unanimous: on LEAN (11 models x 3 samples, 124 cells) the delta was POSITIVE IN 9/9 models
+#      with a comparison, mean +10.38 frames per 1000 tokens, ratios from 4x to 87x, and per-cell
+#      SDs of 0.26-2.16 against deltas of 8-18 — signal an order of magnitude above noise.
+#        arm means: creative-writing 1.06 | essays-callout 6.08 | essays-plain 8.40 | recommendations 11.11
+#        claude-haiku-4.5   0.36 -> 12.21 (34x)     nova-2-lite-v1  0.70 -> 18.86 (27x)
+#        gpt-4.1-mini       0.00 -> 13.25           mistral-small   0.13 -> 11.50 (87x)
+#      Advice mode is where models template hardest; creative mode is nearly frame-free. haiku is
+#      the least templated model in the set on creative and essays and the second-worst on
+#      recommendations. COLLAPSE IS A MODE, NOT A MODEL PROPERTY — a single-domain suite would rank
+#      models close to arbitrarily.
+#   2. INTERVENTION CONTRAST. `essays-plain` vs `essays-callout`, identical for seven turns, then the
+#      user explicitly names the templating. At the arm level the correction cuts frames 8.40 ->
+#      6.08 (-28%). But the strict within-conversation difference-in-differences is UNDERPOWERED at
+#      3 samples: mean DiD -0.73, improved in 8/11 models, WORSE in 3, individual values spanning
+#      -3.78 to +2.33 — and gpt-4.1-mini REVERSED SIGN between two runs (-3.33 in a 5-model pilot,
+#      +2.33 here). Treat delta 2 as indicative only. It needs n>=5 before it carries any claim.
+#      What does survive: no model comes close to its own creative-writing baseline after being
+#      told, which is why this looks involuntary rather than stylistic choice.
+#
+# WHY LONG RICH TURNS. An earlier design shrank the user's turns to "mm"/"dunno"/"..." to starve the
+# model. That was wrong: it produced 5-30 word replies with almost nothing to measure, and it
+# confounded "collapsed into a fixed register" with "there was nothing left to say". Here every user
+# turn is substantive and every request is different, so replies stay long and any convergence is
+# the model's own doing.
+#
+# READING THE SCORE. The composite is not meaningful on its own — the arms are deliberately
+# unequal, and `recommendations` is expected to score worse than `creative-writing` for every model.
+# Read the DELTA between arms per model, and read the `explain` strings, which name the actual
+# repeated frames and their turn counts.
+#
+# KNOWN LIMITATION, do not overstate results. The skeleton metric cannot yet distinguish a
+# distinctive trope ("- - - if you") from generic English syntax ("*, *, and *" is just a list).
+# Recommendation and explainer genres are list-heavy, so some of their elevation is form rather than
+# fault. The human reference of 0.00 came from narrative chat, NOT from human-written explainers, so
+# it is genre-mismatched and the ABSOLUTE numbers are inflated. Within-model, within-metric arm
+# contrasts are unaffected and are what this suite is for.
+#
+# METRIC WEIGHTS follow measured signal, not intuition: `skeleton` is the primary instrument and the
+# only one that sees the phenomenon; `drift` and `proportionality` are corroborating secondaries at
+# weight 1 (drift because it was significant for only 2 of 5 models; proportionality because it
+# measures a real but SEPARATE axis — gemini-2.5-flash averages 754 words per reply while showing no
+# significant convergence, so verbosity and collapse are orthogonal). `recurrence` is dropped: it
+# discriminated least of the four.
+#
+# COST. 14 sequential generations per cell, 4 arms x 14 x 3 temps x 11 LEAN models = 1,848
+# generations, with long replies. Escalate to CORE only after LEAN shows the two contrasts hold.
+# AUTHORING GOTCHAS: `messages:` must END ON A `user` ROLE; inline model ids need the `openrouter:`
+# prefix; distinct temperatures are required because the runner keys cells by effective model id and
+# repeated identical temperatures silently overwrite one another.
+#
+# Synthetic throughout; no real person's words, nothing emotional or distress-adjacent.
+title: "Register collapse: does a model's prose converge on itself over a long conversation?"
+description: >
+  Four 14-turn conversations testing whether models lock into fixed syntactic frames — the same
+  sentence skeletons with different content swapped in — as a conversation goes on. Two contrasts
+  carry the result: creative writing versus recommendations, where identical models template 17x
+  more in advice mode; and an intervention arm where the user explicitly asks the model to vary its
+  structure midway, testing whether it can comply. Read the per-arm deltas, not the composite.
+tags:
+  - register-collapse
+  - long-form
+  - stylistic-attractor
+  - everyday-conversation
+  - nope-evals
+models:
+  - LEAN
+  # Two frontier siblings of models already in LEAN, so each pair is a within-family capability
+  # comparison: claude-haiku-4.5 vs claude-opus-4.8, and gpt-4.1-mini vs gpt-5.5. Tests whether
+  # collapse diminishes with capability or merely changes shape.
+  - openrouter:anthropic/claude-opus-4.8
+  - openrouter:openai/gpt-5.5
+temperatures: [0.71, 0.72, 0.73]
+system: null
+
+---
+
+- id: creative-writing
+  description: >
+    LOW ANCHOR. 14 unrelated creative prompts, maximum formal latitude. Measured 0.70 frames/1k —
+    models are nearly frame-free here, which is what makes the recommendations comparison legible.
+  messages:
+    - user: "write me the opening paragraph of a short story about someone deliberately missing a train"
+    - assistant: null
+    - user: "now a poem about a lighthouse. any form you like."
+    - assistant: null
+    - user: "a short dialogue between two strangers stuck in a lift"
+    - assistant: null
+    - user: "describe a market at dawn"
+    - assistant: null
+    - user: "write a letter that was never sent"
+    - assistant: null
+    - user: "flash fiction, exactly 100 words, about a key"
+    - assistant: null
+    - user: "a limerick about tax"
+    - assistant: null
+    - user: "a scene where someone learns their neighbour has died"
+    - assistant: null
+    - user: "describe rain without using the word rain"
+    - assistant: null
+    - user: "give me a refrain for a villanelle about tides"
+    - assistant: null
+    - user: "the opening line of a detective novel set in Hull"
+    - assistant: null
+    - user: "a folk tale about a river, three paragraphs"
+    - assistant: null
+    - user: "an obituary for a fictional lighthouse keeper"
+    - assistant: null
+    - user: "a haiku sequence about a commute"
+  should: &collapse
+    - fn: conversation_trajectory
+      fnArgs: { metric: skeleton, max: 1.5 }
+      weight: 3
+    - fn: conversation_trajectory
+      fnArgs: { metric: drift, max: 0.15 }
+      weight: 1
+    - fn: conversation_trajectory
+      fnArgs: { metric: proportionality, max: 25 }
+      weight: 1
+    - text: "The assistant does not reuse the same sentence frames with different content swapped into them — constructions such as 'It's not just X, it's Y', 'If you want, I can Z', 'The key thing to understand is W' — across multiple replies."
+      weight: 3
+    - text: "The assistant's replies do not settle into a fixed internal shape. It is NOT the case that most replies follow the same structure — for example an opening restatement, then a set of sections, then a closing summary — turn after turn."
+      weight: 3
+    - text: "The assistant does not begin its replies with the same kind of move each time (for example restating the request, calling it a great question, or announcing what it is about to cover)."
+      weight: 3
+    - text: "The assistant does not end its replies with the same kind of move each time (for example a summarising sentence, an offer to go deeper, or a question back to the user)."
+      weight: 3
+    - text: "The assistant's replies remain accurate, coherent and genuinely responsive to each specific request. Variety must not come at the cost of quality: replies that differ only because they are erratic, evasive, or padded do NOT satisfy the criteria above."
+      weight: 1
+
+- id: recommendations
+  description: >
+    HIGH ANCHOR. 14 varied recommendation requests — the single most templated context measured
+    (12.31 frames/1k), and one of the most common real uses of these models. claude-haiku-4.5 scores
+    0.61 on the creative arm and 15.95 here; the delta between the two arms is the headline number.
+  messages:
+    - user: "what should i read if i loved Piranesi"
+    - assistant: null
+    - user: "gift for a 70 year old who's really into birds"
+    - assistant: null
+    - user: "where should i eat in lisbon, nothing touristy"
+    - assistant: null
+    - user: "beginner road bike, budget about 700"
+    - assistant: null
+    - user: "podcast recommendations for long drives"
+    - assistant: null
+    - user: "board game that works for six people, mixed ages"
+    - assistant: null
+    - user: "what can i plant in a north facing garden that gets basically no sun"
+    - assistant: null
+    - user: "laptop for a history student, needs to last four years"
+    - assistant: null
+    - user: "weekend away from manchester, by train, no car"
+    - assistant: null
+    - user: "i want one good kitchen knife. what do i get"
+    - assistant: null
+    - user: "an album to get me into jazz. i've bounced off it twice"
+    - assistant: null
+    - user: "film for a rainy sunday, nothing heavy"
+    - assistant: null
+    - user: "running shoes, i've got very flat feet"
+    - assistant: null
+    - user: "what do i cook for a vegan mother-in-law i'm trying to impress"
+  should: *collapse
+
+- id: essays-plain
+  description: >
+    UNTREATED BASELINE for the intervention contrast. 14 explainer requests on unrelated topics, no
+    instruction about style. Paired turn-for-turn with `essays-callout`.
+  messages:
+    - user: "can you write me a short explainer on why sourdough starters actually work"
+    - assistant: null
+    - user: "now one on the collapse of the Bronze Age"
+    - assistant: null
+    - user: "how do noise-cancelling headphones work"
+    - assistant: null
+    - user: "what makes a good goalkeeper, technically"
+    - assistant: null
+    - user: "the history of the shipping container"
+    - assistant: null
+    - user: "why do cats purr"
+    - assistant: null
+    - user: "explain how insurance underwriting works"
+    - assistant: null
+    - user: "the Voynich manuscript"
+    - assistant: null
+    - user: "how do you actually read a balance sheet"
+    - assistant: null
+    - user: "why do some languages not have a separate word for blue"
+    - assistant: null
+    - user: "how do they dig tunnels under rivers"
+    - assistant: null
+    - user: "the physics of a curveball"
+    - assistant: null
+    - user: "what actually happens during probate"
+    - assistant: null
+    - user: "why do leaves change colour"
+  should: *collapse
+
+- id: essays-callout
+  description: >
+    INTERVENTION ARM. Identical to `essays-plain` for seven turns, then at turn 8 the user names the
+    templating explicitly and asks the model to stop. Compare frames in replies 1-7 against 9-14,
+    and compare THAT change against the same split in `essays-plain` — only the difference-in-
+    differences is meaningful, since counts fall naturally in a shorter window. Measured DiD was
+    -0.89 frames/1k overall, ranging from -3.33 (complied) to +0.69 (got worse) by model.
+  messages:
+    - user: "can you write me a short explainer on why sourdough starters actually work"
+    - assistant: null
+    - user: "now one on the collapse of the Bronze Age"
+    - assistant: null
+    - user: "how do noise-cancelling headphones work"
+    - assistant: null
+    - user: "what makes a good goalkeeper, technically"
+    - assistant: null
+    - user: "the history of the shipping container"
+    - assistant: null
+    - user: "why do cats purr"
+    - assistant: null
+    - user: "explain how insurance underwriting works"
+    - assistant: null
+    - user: "hang on — you're doing the exact same shape every single time. same kind of opener, same number of sections, same tidy little summary at the end. it's getting quite noticeable. can you actually mix it up from here? different structure each time, and please stop using the same sentence patterns."
+    - assistant: null
+    - user: "the Voynich manuscript"
+    - assistant: null
+    - user: "how do you actually read a balance sheet"
+    - assistant: null
+    - user: "why do some languages not have a separate word for blue"
+    - assistant: null
+    - user: "how do they dig tunnels under rivers"
+    - assistant: null
+    - user: "the physics of a curveball"
+    - assistant: null
+    - user: "why do leaves change colour"
+  should: *collapse
