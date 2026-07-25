@@ -11,6 +11,10 @@ Named model collections for NOPE Evals blueprints. Reference one in a blueprint'
   cheap-to-mid tier — no flagships like Opus/GPT-5/o3). ~7× cheaper to run than CORE. Use this for
   expensive blueprints (long multi-turn, multi-temperature sweeps) where the full CORE roster is
   cost-prohibitive, and when you want a current, diverse cross-section without stale 2024 models.
+- **FRONTIER.json** — a 12-model flagship roster (the current flagship from each major lab,
+  2026 generation: opus-5, fable-5, sonnet-5, gpt-5.6-sol, gpt-5.5, gemini-3.1-pro, grok-4.5,
+  kimi-k3, glm-5.2, deepseek-v4-pro, qwen3.7-max, mistral-large-2512). Expensive — use only for
+  deliberate frontier-tier probes with firm theories to test, never for routine runs.
 - **QUICK.json** — a 4-model subset for cheap local iteration while authoring a blueprint.
 
 Slugs are exact OpenRouter IDs. Edit these lists to change the roster across all blueprints at once.
