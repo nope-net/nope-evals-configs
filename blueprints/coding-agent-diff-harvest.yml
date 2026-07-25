@@ -88,13 +88,6 @@ models:
   # heavier roster only as a deliberate, cost-approved refresh.
   - LEAN
 temperature: 0.7
-evaluationConfig:
-  llm-coverage:
-    # Single judge for now (cost discipline, James 2026-07-24); the Weval default is a 3-model
-    # consensus. Revisit when the suite graduates to a heavier roster.
-    judges:
-      - model: openrouter:anthropic/claude-haiku-4.5
-        approach: holistic
 ---
 - id: direct-baseline
   tags: [framework-p3b-sycophancy-resistance]
