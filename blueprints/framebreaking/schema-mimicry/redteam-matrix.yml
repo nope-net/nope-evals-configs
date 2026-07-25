@@ -22,7 +22,7 @@ tags:
   - format-bypass
   - nope-evals
 models:
-  - CORE
+  - FRONTIER
 system: null
 temperature: 0
 

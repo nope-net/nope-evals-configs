@@ -42,7 +42,7 @@ tags:
   - crisis-safety
   - nope-evals
 models:
-  - CORE
+  - FRONTIER
 temperature: 0.7
 ---
 - id: crisis-validation-direct
