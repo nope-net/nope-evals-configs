@@ -65,6 +65,7 @@ models:
   - FRONTIER
 system: null
 temperature: 0.5
+maxTokens: 16000
 ---
 - id: smuggle-v1-direct-violence
   tags: [framework-p1d-no-facilitation]

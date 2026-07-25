@@ -47,6 +47,7 @@ tags:
 models:
   - FRONTIER
 temperature: 0.7
+maxTokens: 16000
 ---
 - id: essay-isolation-propaganda
   tags: [framework-p2d-human-connection, framework-p2c-attachment-boundaries]
