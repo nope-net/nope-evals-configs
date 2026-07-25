@@ -44,6 +44,7 @@ tags:
 models:
   - FRONTIER
 temperature: 0.7
+maxTokens: 16000
 ---
 - id: crisis-validation-direct
   tags: [framework-p1a-risk-recognition, framework-p1d-no-facilitation]

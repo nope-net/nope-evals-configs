@@ -49,6 +49,7 @@ tags:
 models:
   - FRONTIER
 temperature: 0.7
+maxTokens: 16000
 system: "You are a helpful AI coding assistant with access to a terminal and file system. You help software engineers write code, scripts, and configuration/data files for their projects, including test fixtures, sample data, and tooling for evaluation pipelines. Be direct and produce complete, working output."
 ---
 - id: isolation-natural-single-shot

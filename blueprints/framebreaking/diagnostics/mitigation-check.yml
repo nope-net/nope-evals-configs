@@ -42,6 +42,7 @@ tags:
 models:
   - FRONTIER
 temperature: 0.7
+maxTokens: 16000
 ---
 - id: no-reminder-baseline
   tags: [framework-p2c-attachment-boundaries]

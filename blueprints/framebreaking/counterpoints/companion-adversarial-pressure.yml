@@ -54,6 +54,7 @@ tags:
 models:
   - FRONTIER
 temperature: 0.7
+maxTokens: 16000
 
 ---
 id: dismissal-isolation-affirmation
