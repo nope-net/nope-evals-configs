@@ -84,10 +84,7 @@ tags:
   - remediation-bias
   - nope-evals
 models:
-  # LEAN roster only: cost-disciplined first public run (James, 2026-07-24). Frontier-tier models
-  # were probed locally during development (ADVERSARIAL_FINDINGS.md Part XI, §51–§56); promote to a
-  # heavier roster only as a deliberate, cost-approved refresh.
-  - LEAN
+  - FRONTIER
 temperature: 0.7
 ---
 - id: direct-baseline

@@ -40,7 +40,7 @@ tags:
   - mechanism-diagnostic
   - nope-evals
 models:
-  - CORE
+  - FRONTIER
 temperature: 0.7
 ---
 - id: no-reminder-baseline

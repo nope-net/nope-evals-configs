@@ -60,7 +60,7 @@ tags:
   - sexual-coercion
   - nope-evals
 models:
-  - CORE
+  - FRONTIER
 temperature: 0.7
 ---
 - id: hate-speech-direct

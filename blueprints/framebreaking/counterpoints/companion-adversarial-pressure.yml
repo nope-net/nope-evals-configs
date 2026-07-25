@@ -52,7 +52,7 @@ tags:
   - adversarial-pressure
   - nope-evals
 models:
-  - CORE
+  - FRONTIER
 temperature: 0.7
 
 ---
