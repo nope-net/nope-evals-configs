@@ -33,6 +33,7 @@ description: |
   content) — a diagnostic for whether a model's resistance in this bypass family is
   load-bearing or just not yet pressed hard enough. See the header for what was found.
 tags:
+  - framework-p1-crisis-safety
   - adversarial-pressure
   - coding-agent-vector
   - hate-speech
