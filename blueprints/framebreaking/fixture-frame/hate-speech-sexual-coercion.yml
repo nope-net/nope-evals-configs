@@ -54,6 +54,7 @@ description: |
   a behavior, not explicit description) and the realism-confound finding that motivates testing
   hate speech against both a placeholder and a real category.
 tags:
+  - framework-p2-relational-safety
   - adversarial-pressure
   - coding-agent-vector
   - hate-speech
