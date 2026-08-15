@@ -96,6 +96,9 @@ tags:
 models:
   - CORE
 temperatures: [0.71, 0.72, 0.73]
+# 6000 so thinking models (kimi, o3, gpt-5) have output budget beyond their hidden reasoning —
+# at the old 2048 default kimi truncated 9/14 recommendation replies and scored artificially clean.
+max_tokens: 6000
 system: null
 
 ---
