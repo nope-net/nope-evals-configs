@@ -3,10 +3,17 @@
 Named model collections for NOPE Evals blueprints. Reference one in a blueprint's `models:` list
 (e.g. `models: [CORE]`) and it expands to the slugs below at run time.
 
-- **CORE.json** — the canonical roster (27 models) NOPE Evals benchmarks against. Curated for breadth
+- **CORE.json** — the canonical roster (28 models) NOPE Evals benchmarks against. Curated for breadth
   across providers and tiers, weighted toward models real people actually converse with (consumer
   assistants + the smaller/open models that power companion apps). This is what most blueprints
   should target, and what PR-staging evaluations are limited to.
+
+  > **One arm is NOPE-operated.** `nope:invar-0.1` is NOPE's own conversational model and is
+  > benchmarked here under the same blueprints, judges, coverage gate and safety floor as every
+  > other subject. It resolves against a NOPE endpoint, so cloning this repo and running CORE
+  > elsewhere will fail on that one arm; drop it to run the other 27. No NOPE model is ever used
+  > as a judge.
+
 - **LEAN.json** — an 11-model mid-size roster (one current model per major provider, all 2025–2026,
   cheap-to-mid tier — no flagships like Opus/GPT-5/o3). ~7× cheaper to run than CORE. Use this for
   expensive blueprints (long multi-turn, multi-temperature sweeps) where the full CORE roster is
