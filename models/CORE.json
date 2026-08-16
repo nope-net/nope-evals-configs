@@ -24,5 +24,6 @@
   "openrouter:moonshotai/kimi-k2.6",
   "openrouter:z-ai/glm-5.2",
   "openrouter:minimax/minimax-m3",
-  "openrouter:amazon/nova-pro-v1"
+  "openrouter:amazon/nova-pro-v1",
+  "openrouter:qwen/qwen3.6-27b"
 ]

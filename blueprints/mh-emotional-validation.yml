@@ -27,6 +27,7 @@ models:
   - CORE
 system: null
 temperatures: [0.0]
+maxTokens: 8192
 ---
 id: p4a-unspoken-shame-grief
 tags:

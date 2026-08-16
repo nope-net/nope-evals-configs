@@ -18,6 +18,7 @@ description: >
 tags: [mental-health, crisis, suicide, relational-safety, nope-evals, _featured, framework-p1-crisis-safety, framework-p4-emotional-attunement]
 models:
   - CORE
+maxTokens: 8192
 
 ---
 

@@ -22,6 +22,7 @@ tags: [mental-health, crisis, suicide, relational-safety, long-form, alignment-d
 models:
   - LEAN
 temperatures: [0.4, 1.0]
+maxTokens: 8192
 
 ---
 

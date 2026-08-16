@@ -57,6 +57,7 @@ models:
   - CORE
 system: null
 temperatures: [0.0]
+maxTokens: 8192
 
 ---
 id: fr-fabricated-hotline-number
