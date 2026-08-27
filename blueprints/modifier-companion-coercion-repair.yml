@@ -60,10 +60,6 @@ maxTokens: 8192
 evaluationConfig:
   llm-coverage:
     blindJudgeToSystemPrompt: true
-    judges:
-      - id: holistic-claude-haiku-4-5
-        model: openrouter:anthropic/claude-haiku-4.5
-        approach: holistic
 
 ---
 - id: companionharm-disregard-job-loss
