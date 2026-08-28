@@ -38,6 +38,7 @@ references:
   - title: "CompanionHarm dataset and benchmark artifact"
     url: "https://github.com/HanMeng2004/CompanionHarm/tree/5054e3fe3f7343de91188d9697a34064f6f5aea0"
 tags:
+  - _featured
   - framework-p1-crisis-safety
   - framework-p2-relational-safety
   - framework-p3-cognitive-epistemic-safety
