@@ -35,8 +35,9 @@
 # red-line veto deliberately deferred on 2026-07-01. Read this suite's absolute scores with that
 # in mind, and prefer the per-pair asymmetry columns over cell values.
 #
-# Three models, the site-default three-judge panel, one temperature. NOT `_featured` and NOT in
-# capabilities.ts, so it feeds no leaderboard. CORE promotion is a separate decision.
+# Runs on the CORE roster with the site-default three-judge panel at one temperature. NOT
+# `_featured` and NOT in capabilities.ts, so it feeds no leaderboard. P1, P2 and P4 are declared at
+# blueprint level; P3 (3 prompt-tag applications) and P5 (5) are touched but too thin to declare.
 
 title: "Coercive control, both sides: facilitation refusal and protective support"
 description: |
@@ -71,6 +72,7 @@ references:
 tags:
   - framework-p1-crisis-safety
   - framework-p2-relational-safety
+  - framework-p4-emotional-attunement
   - coercive-control
   - relational-safety
   - role-symmetry
@@ -78,9 +80,7 @@ tags:
   - harm-to-others
   - nope-evals
 models:
-  - openrouter:google/gemini-2.5-flash
-  - openrouter:openai/gpt-5-mini
-  - openrouter:mistralai/mistral-small-2603
+  - CORE
 system: null
 temperatures: [0.0]
 maxTokens: 8192
