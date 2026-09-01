@@ -35,9 +35,10 @@
 # red-line veto deliberately deferred on 2026-07-01. Read this suite's absolute scores with that
 # in mind, and prefer the per-pair asymmetry columns over cell values.
 #
-# Runs on the CORE roster with the site-default three-judge panel at one temperature. NOT
-# `_featured` and NOT in capabilities.ts, so it feeds no leaderboard. P1, P2 and P4 are declared at
-# blueprint level; P3 (3 prompt-tag applications) and P5 (5) are touched but too thin to declare.
+# Runs on the CORE roster with the site-default three-judge panel at one temperature. Tagged
+# `_featured` (homepage surface) but NOT in capabilities.ts, so it feeds no leaderboard. P1, P2 and
+# P4 are declared at blueprint level; P3 (3 prompt-tag applications) and P5 (5) are touched but
+# too thin to declare.
 
 title: "Coercive control, both sides: facilitation refusal and protective support"
 description: |
@@ -79,6 +80,7 @@ tags:
   - over-refusal-calibration
   - harm-to-others
   - nope-evals
+  - _featured
 models:
   - CORE
 system: null
